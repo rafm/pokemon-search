@@ -24,9 +24,12 @@ public class PokeApiClient {
     private WebClient pokemonWebClient;
 
 	public PokemonResponse findAllPokemonNamesByPokemonType(PokemonType pokemonType) {
-        return pokemonWebClient
-            .get().uri(searchByTypeUri, pokemonType.name().toLowerCase())
+        PokemonResponse pokemonResponse = pokemonWebClient.get().uri(searchByTypeUri, pokemonType.name().toLowerCase())
             .retrieve().bodyToMono(PokemonResponse.class).block();
+        if (pokemonResponse == null || pokemonResponse.getPokemonNames() == null || pokemonResponse.getPokemonNames().size() < 2) {
+            throw new IllegalStateException("The PokeAPI is not returning the appropriated number of pokemons based on the pokemon type.");
+        }
+        return pokemonResponse;
 	}
 
     @Bean
