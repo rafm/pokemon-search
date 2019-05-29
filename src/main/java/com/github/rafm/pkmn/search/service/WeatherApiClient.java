@@ -14,11 +14,14 @@ import reactor.core.publisher.Mono;
 @Service
 public class WeatherApiClient {
 
-    private static final String BASE_URI = "https://api.openweathermap.org/data/2.5";
-    private static final String SEARCH_BY_CITY_URI = "/weather?q={city}&units=metric&appid={appid}";
-
     @Value("${weatherApi.appId}")
     private String appId;
+
+    @Value("${weatherApi.baseUri}")
+    private String baseUri;
+
+    @Value("${weatherApi.searchByCityUri}")
+    private String searchByCityUri;
     
     @Autowired
     @Qualifier("weather")
@@ -26,13 +29,13 @@ public class WeatherApiClient {
 
     public Mono<WeatherResponse> searchByCityName(String cityName) {
         return weatherWebClient
-            .get().uri(SEARCH_BY_CITY_URI, cityName, appId)
+            .get().uri(searchByCityUri, cityName, appId)
             .retrieve().bodyToMono(WeatherResponse.class);
     }
 
     @Bean
     @Qualifier("weather")
     private WebClient weatherWebClient(WebClient.Builder webClientBuilder) {
-        return webClientBuilder.baseUrl(BASE_URI).build();
+        return webClientBuilder.baseUrl(baseUri).build();
     }
 }

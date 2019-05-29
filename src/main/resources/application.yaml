@@ -1,0 +1,6 @@
+weatherApi:
+    baseUri: https://api.openweathermap.org/data/2.5
+    searchByCityUri: /weather?q={city}&units=metric&appid={appid}
+pokeApi:
+    baseUri: https://pokeapi.co/api/v2
+    searchByTypeUri: /type/{pokemonType}
