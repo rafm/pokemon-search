@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import reactor.core.publisher.Mono;
-
 @Service
 public class PokeApiClient {
 
@@ -25,10 +23,10 @@ public class PokeApiClient {
     @Qualifier("pokemon")
     private WebClient pokemonWebClient;
 
-	public Mono<PokemonResponse> findAllPokemonNamesByPokemonType(PokemonType pokemonType) {
+	public PokemonResponse findAllPokemonNamesByPokemonType(PokemonType pokemonType) {
         return pokemonWebClient
             .get().uri(searchByTypeUri, pokemonType.name().toLowerCase())
-            .retrieve().bodyToMono(PokemonResponse.class);
+            .retrieve().bodyToMono(PokemonResponse.class).block();
 	}
 
     @Bean

@@ -21,7 +21,7 @@ public class PokemonSearchFacade {
     private final Random RANDOM = new Random();
 
     @Autowired
-    private WeatherApiClient weatherService;
+    private WeatherApiClient weatherApiClient;
 
     @Autowired
     private PokeApiClient pokeApiClient;
@@ -30,9 +30,9 @@ public class PokemonSearchFacade {
     private PokemonService pokemonService;
 
     public PokemonSearchResponse searchPokemonByCityName(String cityName) {
-        WeatherResponse weatherResponse = weatherService.searchByCityName(cityName).block();
+        WeatherResponse weatherResponse = weatherApiClient.searchByCityName(cityName);
         PokemonType pokemonType = pokemonService.retrieveInhabitedPokemonTypeBasedOnWeather(weatherResponse.isRaining(), weatherResponse.getTemperature());
-        PokemonResponse pokemonResponse = pokeApiClient.findAllPokemonNamesByPokemonType(pokemonType).block();
+        PokemonResponse pokemonResponse = pokeApiClient.findAllPokemonNamesByPokemonType(pokemonType);
         // TODO 0 and 1 cases
         // TODO Concurrency
         String pokemonName;

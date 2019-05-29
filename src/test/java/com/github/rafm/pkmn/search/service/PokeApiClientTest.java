@@ -34,7 +34,7 @@ public class PokeApiClientTest {
     private RequestHeadersUriSpec mockedRequestHeadersUriSpec;
 
     @Mock
-    private Mono<PokemonResponse> mockedPokemonResponse;
+    private PokemonResponse mockedPokemonResponse;
 
     @InjectMocks
     private PokeApiClient pokeApiClient;
@@ -45,12 +45,12 @@ public class PokeApiClientTest {
         when(pokemonWebClient.get()).thenReturn(mockedRequestHeadersUriSpec);
         when(mockedRequestHeadersUriSpec.uri(isNull(), anyString())).thenReturn(mockedRequestHeadersUriSpec);
         when(mockedRequestHeadersUriSpec.retrieve()).thenReturn(mockedResponseSpec);
-        when(mockedResponseSpec.bodyToMono(PokemonResponse.class)).thenReturn(mockedPokemonResponse);
+        when(mockedResponseSpec.bodyToMono(PokemonResponse.class)).thenReturn(Mono.just(mockedPokemonResponse));
     }
 
     @Test
     public void testFindAllPokemonNamesByPokemonType() {
-        Mono<PokemonResponse> response = pokeApiClient.findAllPokemonNamesByPokemonType(PokemonType.ELECTRIC);
+        PokemonResponse response = pokeApiClient.findAllPokemonNamesByPokemonType(PokemonType.ELECTRIC);
 
         assertSame(mockedPokemonResponse, response);
         verify(mockedRequestHeadersUriSpec).uri(null, PokemonType.ELECTRIC.name().toLowerCase());

@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import reactor.core.publisher.Mono;
-
 @Service
 public class WeatherApiClient {
 
@@ -27,10 +25,10 @@ public class WeatherApiClient {
     @Qualifier("weather")
     private WebClient weatherWebClient;
 
-    public Mono<WeatherResponse> searchByCityName(String cityName) {
+    public WeatherResponse searchByCityName(String cityName) {
         return weatherWebClient
             .get().uri(searchByCityUri, cityName, appId)
-            .retrieve().bodyToMono(WeatherResponse.class);
+            .retrieve().bodyToMono(WeatherResponse.class).block();
     }
 
     @Bean

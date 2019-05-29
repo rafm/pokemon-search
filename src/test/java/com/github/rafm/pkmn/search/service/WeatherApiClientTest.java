@@ -33,7 +33,7 @@ public class WeatherApiClientTest {
     private RequestHeadersUriSpec mockedRequestHeadersUriSpec;
 
     @Mock
-    private Mono<WeatherResponse> mockedWeatherResponse;
+    private WeatherResponse mockedWeatherResponse;
 
     @InjectMocks
     private WeatherApiClient weatherApiClient;
@@ -44,12 +44,12 @@ public class WeatherApiClientTest {
         when(weatherWebClient.get()).thenReturn(mockedRequestHeadersUriSpec);
         when(mockedRequestHeadersUriSpec.uri(isNull(), anyString(), isNull())).thenReturn(mockedRequestHeadersUriSpec);
         when(mockedRequestHeadersUriSpec.retrieve()).thenReturn(mockedResponseSpec);
-        when(mockedResponseSpec.bodyToMono(WeatherResponse.class)).thenReturn(mockedWeatherResponse);
+        when(mockedResponseSpec.bodyToMono(WeatherResponse.class)).thenReturn(Mono.just(mockedWeatherResponse));
     }
 
     @Test
     public void testSearchByCityName() {
-        Mono<WeatherResponse> response = weatherApiClient.searchByCityName("Campinas");
+        WeatherResponse response = weatherApiClient.searchByCityName("Campinas");
 
         assertSame(mockedWeatherResponse, response);
         verify(mockedRequestHeadersUriSpec).uri(null, "Campinas", null);
