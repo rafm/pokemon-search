@@ -24,7 +24,7 @@ public class SearchRestController {
     
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PokemonSearchResponse> searchPokemon(@RequestParam @NotBlank String cityName) {
-        // TODO Bean Validation's @NotBlank not working
+        // TODO Fix: Bean Validation's @NotBlank not working
         if (cityName == null || cityName.trim().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }

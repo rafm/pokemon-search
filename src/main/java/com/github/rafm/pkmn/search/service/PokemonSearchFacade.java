@@ -33,8 +33,7 @@ public class PokemonSearchFacade {
         WeatherResponse weatherResponse = weatherApiClient.searchByCityName(cityName);
         PokemonType pokemonType = pokemonService.retrieveInhabitedPokemonTypeBasedOnWeather(weatherResponse.isRaining(), weatherResponse.getTemperature());
         PokemonResponse pokemonResponse = pokeApiClient.findAllPokemonNamesByPokemonType(pokemonType);
-        // TODO 0 and 1 cases
-        // TODO Concurrency
+        // TODO Improve concurrency solution performance
         String pokemonName;
         synchronized (lastPokemonName) {
             do {
