@@ -33,22 +33,21 @@ public class PokemonSearchFacade {
         WeatherResponse weatherResponse = weatherApiClient.searchByCityName(cityName);
         PokemonType pokemonType = pokemonService.retrieveInhabitedPokemonTypeBasedOnWeather(weatherResponse.isRaining(), weatherResponse.getTemperature());
         PokemonResponse pokemonResponse = pokeApiClient.findAllPokemonNamesByPokemonType(pokemonType);
-        String pokemonName;
-        // TODO Improve concurrency solution performance (because of the random logic being executed while the resource is locked)
-        // Synchronized last pokemon name to deal with concurrency when reading/writing this variable, as there will be only one
-        // accessed by multiple clients/requests at the same time. Just like a read commited isolation level in a DB transaction,
-        // as i've locked this variable before reading and writing, no client will read a dirty value of this variable.
-        synchronized (lastPokemonName) {
-            do {
-                pokemonName = pickRandomPokemonName(pokemonResponse.getPokemonNames());
-            } while (pokemonName.equals(lastPokemonName));
-            lastPokemonName = pokemonName;
-        }
+        String pokemonName = pickRandomPokemonName(pokemonResponse.getPokemonNames());
         return new PokemonSearchResponse(weatherResponse.getTemperature(), weatherResponse.isRaining(), pokemonName);
     }
 
-    private String pickRandomPokemonName(List<String> pokemonList) {
-        int randomIndex = RANDOM.nextInt(pokemonList.size());
-        return pokemonList.get(randomIndex);
+    // TODO Improve concurrency solution performance (because of the random logic being executed while the resource is locked)
+    // Synchronized last pokemon name to deal with concurrency when reading/writing this variable, as there will be only one
+    // accessed by multiple clients/requests at the same time. Just like a read commited isolation level in a DB transaction,
+    // as i've locked this variable before reading and writing, no client will read a dirty value of this variable.
+    private synchronized String pickRandomPokemonName(List<String> pokemonNames) {
+        String pokemonName;
+        do {
+            int randomIndex = RANDOM.nextInt(pokemonNames.size());
+            pokemonName = pokemonNames.get(randomIndex);
+        } while (pokemonName.equals(lastPokemonName));
+
+        return lastPokemonName = pokemonName;
     }
 }
