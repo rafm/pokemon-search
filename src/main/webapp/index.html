@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="resources/css/pokemon.css" rel="stylesheet" type="text/css"/>
     <title>Pokemon - Temos que pegar todos!</title>
 </head>
 <body>
-    <form id="pokemon-search-form">
-        Cidade:
-        <input type="text" name="cityName"/>
-        <input type="button" class="pokemon-search-button" value="Procurar Pokemon"/>
-    </form>
+    <main class="main-content">
+        <form id="pokemon-search-form">
+            Cidade:
+            <input type="text" name="cityName"/>
+            <input type="button" class="pokemon-search-button" value="Procurar Pokemon"/>
+        </form>
 
-    <p class="pokemon-info"></p>
-    <p class="city-info"></p>
+        <p class="pokemon-error-message invisible"></p>
+        <p class="pokemon-info pokemon-info-message"></p>
+        <p class="city-info pokemon-info-message"></p>
+    </main>
 
     <script type="text/javascript" src="resources/js/PokemonSearch.js"></script>
 </body>

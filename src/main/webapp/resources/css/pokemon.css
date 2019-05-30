@@ -1,0 +1,13 @@
+.main-content {
+    width: 50%;
+}
+
+.pokemon-info-message {
+    background-color: lightskyblue;
+    color: white;
+}
+
+.pokemon-error-message {
+    background-color: darkred;
+    color: lightcoral;
+}
