@@ -10,7 +10,7 @@
   </parent>
   <groupId>com.github.rafm</groupId>
   <artifactId>pokemon-search</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <name>Pokemon Search</name>
   <description>Demo project for retrieving a random pokemon based on a city's weather</description>
 
