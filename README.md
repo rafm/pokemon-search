@@ -42,7 +42,7 @@ Existem duas maneiras:
 2. Siga as instruções da seção **Como gerar o uber jar a partir de uma branch específica** citadas anteriormente.
 3. Pelo prompt de comando/bash, vá até o local onde está o repositório que você clonou.
 4. Digite o comando: _docker build -t prefix/pokemon-search:x.x ._
-5. A imagem do Docker será criada localmente com o nome _prefix/pokemon-search:x:x_, onde _x:x_ é a versão da imagem que você criou.
+5. A imagem do Docker será criada localmente com o nome _prefix/pokemon-search: x:x_, onde _x:x_ é a versão da imagem que você criou.
 
 ### Como criar e rodar um container do Docker a partir da imagem criada deste projeto
 1. Abra o seu prompt de comando/bash.
