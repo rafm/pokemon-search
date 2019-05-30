@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-// TODO Improve: remove this DTO
+// TODO Improve: remove this DTO, as we can change it only to a List<String> with the pokemon names instead of using this DTO
 public class PokemonResponse {
 
     private List<String> pokemonNames;

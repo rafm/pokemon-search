@@ -33,8 +33,11 @@ public class PokemonSearchFacade {
         WeatherResponse weatherResponse = weatherApiClient.searchByCityName(cityName);
         PokemonType pokemonType = pokemonService.retrieveInhabitedPokemonTypeBasedOnWeather(weatherResponse.isRaining(), weatherResponse.getTemperature());
         PokemonResponse pokemonResponse = pokeApiClient.findAllPokemonNamesByPokemonType(pokemonType);
-        // TODO Improve concurrency solution performance
         String pokemonName;
+        // TODO Improve concurrency solution performance (because of the random logic being executed while the resource is locked)
+        // Synchronized last pokemon name to deal with concurrency when reading/writing this variable, as there will be only one
+        // accessed by multiple clients/requests at the same time. Just like a read commited isolation level in a DB transaction,
+        // as i've locked this variable before reading and writing, no client will read a dirty value of this variable.
         synchronized (lastPokemonName) {
             do {
                 pokemonName = pickRandomPokemonName(pokemonResponse.getPokemonNames());

@@ -23,6 +23,15 @@ public class PokeApiClient {
     @Qualifier("pokemon")
     private WebClient pokemonWebClient;
 
+    /**
+     * Retrieves a list of pokemon names from the PokeAPI and validates if the result was built appropriatelly.
+     * This method may not retrieve less than 2 pokemon names based on the passed pokemon type, otherwise it
+     * will throw an IllegalStateException.
+     * 
+     * @throws java.lang.IllegalStateException in case of an invalid response list from PokeAPI
+     * @param pokemonType type of the pokemons that will be retrieved byt PokeAPI
+     * @return the result from PokeAPi containing the list of pokemon names of the passed pokemonType
+     */
 	public PokemonResponse findAllPokemonNamesByPokemonType(PokemonType pokemonType) {
         PokemonResponse pokemonResponse = pokemonWebClient.get().uri(searchByTypeUri, pokemonType.name().toLowerCase())
             .retrieve().bodyToMono(PokemonResponse.class).block();

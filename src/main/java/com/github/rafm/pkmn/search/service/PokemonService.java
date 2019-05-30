@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PokemonService {
 
-    // TODO Refactor
+    // TODO Refactor: smelly code
     public PokemonType retrieveInhabitedPokemonTypeBasedOnWeather(boolean raining, int temperature) {
         if (raining) {
             return PokemonType.ELECTRIC;

@@ -24,13 +24,19 @@ public class SearchRestController {
     
     @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PokemonSearchResponse> searchPokemon(@RequestParam @NotBlank String cityName) {
-        // TODO Fix: Bean Validation's @NotBlank not working
+        // TODO Fix: Bean Validation's @NotBlank is not working as it shoulded, so i've had to put this validation
         if (cityName == null || cityName.trim().isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok(pokemonSearchFacade.searchPokemonByCityName(cityName));
     }
 
+    /**
+     * Exception handler for web client exceptions.
+     * 
+     * @param exception the thrown web client exception.
+     * @return the appropriated ResponseEntity based on the web client exception.
+     */
     @ExceptionHandler(WebClientResponseException.class)
     public ResponseEntity<String> handleException(WebClientResponseException exception) {
         return ResponseEntity.status(exception.getStatusCode()).body(exception.getResponseBodyAsString());
