@@ -59,7 +59,7 @@ Existem duas maneiras:
 ### Como usar a aplicação
 1. Após iniciar a aplicação, acesse-a através do seu navegador. Ex: http://localhost:8080/
 2. Irá aparecer o campo de texto para você digitar o nome de uma cidade. Digite o nome de uma cidade e clique no botão **Procurar Pokemon**.
-- * Caso você digite um nome de cidade inválido, a aplicação irá te alertar. Corrija o nome, fique atento quanto a caracteres maiúsculos e minúsculos e ao nome da cidade de acordo com a localização/língua dele. Ex: London
+- * Caso você digite um nome de cidade inválido, a aplicação irá te alertar.
 3. Uma mensagem irá aparecer informando qual pokemon apareceu para você, junto com uma informação sobre a temperatura da cidade e, caso esteja chovendo, ele também irá lhe informar por meio da mensagem.
 
 ### Comandos utéis do Maven para desenvolvedores
